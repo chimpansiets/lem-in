@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/12 18:22:41 by vmulder        #+#    #+#                */
-/*   Updated: 2019/05/30 15:00:16 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/06/29 16:34:39 by vmulder       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,13 @@
 # define BUFF_FULL 9999
 # define BUFF_SIZE 20
 
-typedef struct		s_gnl
+typedef struct			s_gnl_list
 {
-	char			buf[BUFF_SIZE + 1];
-	char			*locationnl;
-	char			*buf_leftover;
-	char			*free1;
-	int				i;
-}					t_gnl;
+	ssize_t				fd;
+	ssize_t				str_len;
+	char				*str;
+	struct s_gnl_list	*next;
+}						t_gnl_list;
 
 typedef struct		s_struct {
 	double			f;

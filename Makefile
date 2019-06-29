@@ -6,7 +6,7 @@
 #    By: vmulder <vmulder@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/04/22 14:18:40 by vmulder        #+#    #+#                 #
-#    Updated: 2019/06/27 08:52:41 by vmulder       ########   odam.nl          #
+#    Updated: 2019/06/29 18:50:49 by vmulder       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ HEADER = incl
 SRC_PATH  = srcs
 
 ### SOURCES ###
-SOURCES = main.c
+SOURCES = main.c input.c
 
 ### OBJECTS ###
 SRCS = $(addprefix $(SRC_PATH)/,$(SOURCES))
