@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/27 08:59:33 by vmulder        #+#    #+#                */
-/*   Updated: 2019/06/29 19:33:36 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/06/30 18:04:02 by vmulder       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ void	ft_lemin(void)
 		ft_printf("Error: Either end or start room is missing.\n");
 		exit(1);
 	}
-	ft_printf("start: %s\n", vl.startchamber);
-	ft_printf("end: %s\n", vl.endchamber);
 }
 
 
