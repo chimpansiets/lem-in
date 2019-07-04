@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/29 18:35:06 by vmulder        #+#    #+#                */
-/*   Updated: 2019/06/30 18:38:21 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/04 16:41:07 by vmulder       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,30 +22,22 @@
 ** connected with a - symbol
 */
 
-void	ft_check_connect(char *line) // later add to linklist
+int		ft_check_room_connections(char *line) // later add to linklist
 {
 	int i;
 	int count;
 
 	count = 0;
 	i = 0;
-	if (line[0] == '#')
-		count++;
-	else if (line[0] != '#')
+	while (line[i])
 	{
-		while (line[i])
-		{
-			if (line[i] == '-')
-				count++;
-			i++;
-		}
+		if (line[i] == '-')
+			count++;
+		i++;
 	}
 	if (count != 1)
-	{
-		free(line);
-		ft_printf("Error: There is a problem linking rooms.\n");
-		exit(1);
-	}
+		return (0);
+	return (1);
 }
 
 /*
@@ -91,29 +83,32 @@ void	ft_check_line_after_start_end(char *line)
 	}
 }
 
+
 /*
 ** gets called when a line starts with double hash and then checks if its the
-** the start chamber of the end chamber and calls the function to check them.
-** also adds the chambernames to the linklist.
+** the start room of the end chamber and calls the function to check them.
+** also adds the roomnames to the linklist. (change to stdinput)
 */
 
-void	ft_check_start_end(char *line, t_data *vl)
+void	ft_check_start_end(char *line, t_data *vl, t_lem_list **head)
 {
 	if (ft_strncmp("start", &line[2], 5) == 0 && line[7] == '\0')
 	{
 		vl->start++;
-		ft_check_line_after_start_end(vl->startchamber);
+		get_next_line(3, &vl->startroom);
+		ft_check_line_after_start_end(vl->startroom);
+		ft_add_to_list(vl->startroom, head, 1);
 	}
-	if (ft_strncmp("end", &line[2], 3) == 0 && line[5] == '\0')
+	else if(ft_strncmp("end", &line[2], 3) == 0 && line[5] == '\0')
 	{
 		vl->end++;
-		get_next_line(3, &vl->endchamber);
-		ft_check_line_after_start_end(vl->endchamber);
-		// add the final node to link list
+		get_next_line(3, &vl->endroom);
+		ft_check_line_after_start_end(vl->endroom);
+		ft_add_to_list(vl->endroom, head, 2);
 	}
-	else
+	else if (line[0] != '#')
 	{
-		// else add them to the link list.
+		ft_add_to_list(line, head, 0);
 	}
 }
 
@@ -124,7 +119,7 @@ void	ft_check_start_end(char *line, t_data *vl)
 ** when startcommand is 1 and end is 1 (so chamberconnections)	-> thirth if.
 */
 
-void	ft_check_input(char *line, t_data *vl)
+void	ft_check_input(char *line, t_data *vl, t_lem_list **node)
 {
 	if (ft_strlen(line) == 0)
 	{
@@ -132,10 +127,9 @@ void	ft_check_input(char *line, t_data *vl)
 		ft_printf("Error: empty lines in file.\n");
 		exit(1);
 	}
-	if (vl->start == 0 && line[0] != '#')
+	else if (vl->ants == 0)
 		ft_check_ants(line, vl);
-	if (line[0] == '#' && line[1] == '#')
-		ft_check_start_end(line, vl);
-	if (vl->start == 1 && vl->end == 1)
-		ft_check_connect(line);
+	else if (!ft_check_room_connections(line))
+		ft_check_start_end(line, vl, node);
+
 }

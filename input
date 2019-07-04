@@ -1,11 +1,12 @@
 10
+Room1
 ##start
-roomA	10	20
-roomB	11	21
+room2 
+room3 
 ##end
-RoomC	12	22-
+Room4
+Room5
 ##unknown command
 roomA-roomB
 RoomB-RoomC
 #commentdnadkwndd
-
