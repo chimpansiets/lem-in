@@ -6,13 +6,13 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/04 08:27:14 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/04 17:23:13 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/05 10:25:45 by vmulder       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/lem-in.h"
 
-void	ft_display(t_lem_list *node)
+void	display(t_lem_list *node)
 {
 	while (node != NULL)
 	{
@@ -60,12 +60,12 @@ void	insert_node(char *line, t_lem_list **head, int d)
 ** head node it will go to the insert_node function.
 */
 
-void	ft_add_to_list(char *line, t_lem_list **head, int d)
+void	add_to_list(char *line, t_lem_list **head, int d)
 {
 	if (head == NULL)
 		*head = origin_node(line, d);
 	else
 		insert_node(line, head, d);
-	ft_display(*head);
+	display(*head);
 	ft_printf("\n");
 }

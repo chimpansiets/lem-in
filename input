@@ -1,4 +1,4 @@
-10
+1
 Room1
 ##start
 room2 
@@ -6,7 +6,9 @@ room3
 ##end
 Room4
 Room5
+Room6
 ##unknown command
 roomA-roomB
+roomA-RoomC
 RoomB-RoomC
 #commentdnadkwndd

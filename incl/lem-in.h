@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/27 08:56:35 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/04 16:39:14 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/05 16:13:00 by vmulder       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,13 @@
 # define LEMIN_H
 
 #include "../libft/incl/libft.h"
-#include <errno.h>
+//#include <errno.h>
+
+/*
+** this list is were I store the the roomnames.
+** roomvalue is a number that contains 0, 1 or 2.
+** 1 for being startroom, 2 for being endroom and 0 for in between rooms.
+*/
 
 typedef struct			s_lem_list
 {
@@ -23,11 +29,19 @@ typedef struct			s_lem_list
 	struct s_lem_list	*next;
 }						t_lem_list;
 
+typedef struct			s_lem_hash
+{
+	int					id;
+	char				*room;
+	struct s_lem_hash	*next;
+}						t_lem_hash;
+
 typedef struct			s_data
 {
 	int					start;
 	int					end;
 	int					ants;
+	int					check;
 	char				*startroom;
 	char				*endroom;
 }						t_data;
@@ -36,13 +50,23 @@ typedef struct			s_data
 **	input
 */
 
-void					ft_check_input(char *line, t_data *vl, t_lem_list **node);
+void					check_start_end(char *line, t_data *vl, t_lem_list **head);
+void					check_line_after_start_end(char *line);
+int						check_ants(char *line, t_data *vl);
+void					check_dash(char *line, t_data *vl);
+void					check_room_connection(char *line);
 
 /*
 ** link list
 */
 
-void					ft_start_list(char *line, t_lem_list *head);
-void					ft_add_to_list(char *line, t_lem_list **head, int d);
+void					start_list(char *line, t_lem_list *head);
+void					add_to_list(char *line, t_lem_list **head, int d);
+
+/*
+** create hash table
+*/
+
+void					create_hash(t_lem_list *head);
 
 #endif

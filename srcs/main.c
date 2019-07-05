@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/27 08:59:33 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/04 16:40:21 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/05 14:45:41 by vmulder       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,46 @@
 */
 
 /*
+** First checks if there are no empty lines given to this function.
+** Then it calls checkants if there are no ants yet stored.
+** We check for a dash, if it cant find vl->check stays zero.
+** We only go in fourth if when it did not went into second if (d will be 1)
+** to prevent adding the number of ants to linked list.
+** when check_dash finds a dash we will set vl->check positve to know we are
+** reading room conntection now and will go in the last if.
+*/
+
+void	check_input(char *line, t_data *vl, t_lem_list **node)
+{
+	int d;
+
+	d = 0;
+	if (ft_strlen(line) == 0)
+	{
+		free(line);
+		ft_printf("Error: empty lines in file.\n");
+		exit(1);
+	}
+	if (vl->ants == 0)
+		d = check_ants(line, vl);
+	if (line[0] != '#')
+		check_dash(line, vl);
+	if (!vl->check && !d)
+		check_start_end(line, vl, node);
+	if (vl->check)
+		check_room_connection(line);
+}
+
+/*
+** we going to call create_hash.
+*/
+
+void	lemin_after_retrieving_input(t_lem_list *head)
+{
+	create_hash(head);
+}
+
+/*
 ** lemin is the loop to read all the input and to call the function that is
 ** going to check the input. after the loop is done it checks if it found
 ** 1 starting and 1 ending room for the ants.
@@ -24,7 +64,7 @@
 ** bh is going to be the first link list to save the rooms before i hash them.
 */
 
-void	ft_lemin(void)
+void	lemin(void)
 {
 	t_lem_list	*head;
 	char		*line;
@@ -37,8 +77,7 @@ void	ft_lemin(void)
 	ft_bzero(&vl, sizeof(t_data));
 	while(get_next_line(fd, &line))
 	{
-		ft_check_input(line, &vl, &head);
-//		ft_printf("%s\n", line);
+		check_input(line, &vl, &head);
 		free(line);
 	}
 	free(line);
@@ -47,11 +86,12 @@ void	ft_lemin(void)
 		ft_printf("Error: Either end or start room is missing.\n");
 		exit(1);
 	}
+	lemin_after_retrieving_input(head);
 }
 
 
 int main(void)
 {
-	ft_lemin();
+	lemin();
 	return(0);
 }

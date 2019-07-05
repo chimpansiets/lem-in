@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/29 18:35:06 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/04 16:41:07 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/05 14:24:25 by vmulder       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,39 @@
 ** need them anymore.
 */
 
+void	check_room_connection(char *line) // later add to linklist
+{
+	int i;
+	int count;
+
+	count = 0;
+	i = 0;
+	if (line[0] == '#')
+		count++;
+	while (line[i])
+	{
+		if (line[i] == '-')
+			count++;
+		i++;
+	}
+	if (count == 1)
+		return ;
+	else
+	{
+		free(line);
+		ft_printf("Error: There is a problem with linking rooms.\n");
+		exit(1);
+	}
+	
+}
+
 /*
-** this function checks after finding start and end room that they are correct
-** connected with a - symbol
+** this function checks if the get_next_line already found the '-' symbol.
+** when it finds one we set the vl->check 'on' so we know we are done with
+** reading room names and can start reading room connections.
 */
 
-int		ft_check_room_connections(char *line) // later add to linklist
+void	check_dash(char *line, t_data *vl)
 {
 	int i;
 	int count;
@@ -35,16 +62,15 @@ int		ft_check_room_connections(char *line) // later add to linklist
 			count++;
 		i++;
 	}
-	if (count != 1)
-		return (0);
-	return (1);
+	if (count == 1)
+		vl->check = 1;
 }
 
 /*
 ** this function checks if you give a valid ant amount
 */
 
-void	ft_check_ants(char *line, t_data *vl)
+int		check_ants(char *line, t_data *vl)
 {
 	int i;
 
@@ -57,17 +83,18 @@ void	ft_check_ants(char *line, t_data *vl)
 	if (line[i] != '\0')
 	{
 		free(line);
-		ft_printf("Error: The number of ants is incorrect.\n");
+		ft_printf("Error: The number of ants is incorrect or missing.\n");
 		exit(1);
 	}
+	return (1);
 }
 
 /*
-** this function checks if there is only one ##start and ##end
-** maybe make sure there is no comment below this.
+** this function checks if after starting and ending room there is 
+** no comment or an empty line.
 */
 
-void	ft_check_line_after_start_end(char *line)
+void	check_line_after_start_end(char *line)
 {
 	if (ft_strlen(line) == 0)
 	{
@@ -83,53 +110,30 @@ void	ft_check_line_after_start_end(char *line)
 	}
 }
 
-
 /*
 ** gets called when a line starts with double hash and then checks if its the
 ** the start room of the end chamber and calls the function to check them.
 ** also adds the roomnames to the linklist. (change to stdinput)
 */
 
-void	ft_check_start_end(char *line, t_data *vl, t_lem_list **head)
+void	check_start_end(char *line, t_data *vl, t_lem_list **head)
 {
 	if (ft_strncmp("start", &line[2], 5) == 0 && line[7] == '\0')
 	{
 		vl->start++;
 		get_next_line(3, &vl->startroom);
-		ft_check_line_after_start_end(vl->startroom);
-		ft_add_to_list(vl->startroom, head, 1);
+		check_line_after_start_end(vl->startroom);
+		add_to_list(vl->startroom, head, 1);
 	}
 	else if(ft_strncmp("end", &line[2], 3) == 0 && line[5] == '\0')
 	{
 		vl->end++;
 		get_next_line(3, &vl->endroom);
-		ft_check_line_after_start_end(vl->endroom);
-		ft_add_to_list(vl->endroom, head, 2);
+		check_line_after_start_end(vl->endroom);
+		add_to_list(vl->endroom, head, 2);
 	}
 	else if (line[0] != '#')
 	{
-		ft_add_to_list(line, head, 0);
+		add_to_list(line, head, 0);
 	}
-}
-
-/*
-** calls the other checks and make sure that there are no white lines.
-** if the start command is not yet called it will go in			-> first if.
-** the startcommand is 1 but the end  is 0 (so chambernames)	-> second if.
-** when startcommand is 1 and end is 1 (so chamberconnections)	-> thirth if.
-*/
-
-void	ft_check_input(char *line, t_data *vl, t_lem_list **node)
-{
-	if (ft_strlen(line) == 0)
-	{
-		free(line);
-		ft_printf("Error: empty lines in file.\n");
-		exit(1);
-	}
-	else if (vl->ants == 0)
-		ft_check_ants(line, vl);
-	else if (!ft_check_room_connections(line))
-		ft_check_start_end(line, vl, node);
-
 }
