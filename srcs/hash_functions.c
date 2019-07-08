@@ -6,7 +6,7 @@
 /*   By: svoort <svoort@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/08 12:43:15 by svoort         #+#    #+#                */
-/*   Updated: 2019/07/08 13:42:51 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/08 16:31:30 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,13 @@ int		hash_sum(char *key, int length)
 {
 	unsigned hashval;
 
-    for (hashval = 0; *key != '\0'; key++)
-        hashval = *key + 31*hashval;
-    return hashval % length;
+	hashval = 0;
+	while (*key != '\0')
+	{
+		hashval = *key + 31 * hashval;
+		key++;
+	}
+	return (hashval % length);
 }
 
 /*

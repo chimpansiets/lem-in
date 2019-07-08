@@ -6,18 +6,11 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/04 08:27:14 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/08 13:35:33 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/08 15:37:03 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/lem-in.h"
-/*
-static void	display(t_lem_hash **hnode)
-{
-	ft_printf("ha\n");
-	ft_printf("hashtable index: %d\n", hnode[1]->index);
-}
-*/
 
 /*
 ** checking the length of linked list.
@@ -46,18 +39,42 @@ static void	initialize_hashtable(t_lem_hash **buckets, int length)
 	int i;
 
 	i = 0;
-	while (i >= length)
+	while (i < length)
 	{
-		buckets[i] = NULL;
+		buckets[i] = (t_lem_hash*)malloc(sizeof(t_lem_hash));
+		buckets[i]->elem = NULL;
+		buckets[i]->next = NULL;
+		i++;
+	}
+}
+
+
+static void	print_hash(t_lem_hash **buckets, int length)
+{
+	int	i;
+
+	i = 0;
+	while (i < length)
+	{
+		if (buckets[i]->elem != NULL)
+		{
+			ft_printf("%s ", buckets[i]->elem->room);
+			while (buckets[i]->next != NULL)
+			{
+				buckets[i] = buckets[i]->next;
+				ft_printf("%s ", buckets[i]->elem->room);
+			}
+			ft_printf("\n");
+		}
 		i++;
 	}
 }
 
 /*
-** We make a array of linked list with the 'd' as the number as indices.
+** We make a array of linked list with the size of 'length'.
 */
 
-void	create_hash(t_lem_list *head)
+t_lem_hash	**create_hash(t_lem_list *head)
 {
 	int			length;
 	t_lem_hash	**buckets;
@@ -66,5 +83,6 @@ void	create_hash(t_lem_list *head)
 	buckets = (t_lem_hash **)malloc(sizeof(t_lem_hash *) * length);
 	initialize_hashtable(buckets, length);
 	store_entries(head, buckets, length);
-	//display(hnode);
+	print_hash(buckets, length);
+	return (buckets);
 }

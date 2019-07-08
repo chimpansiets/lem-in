@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/04 08:27:14 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/05 17:02:48 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/08 15:29:34 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	insert_node(char *line, t_lem_list **head, int d)
 
 void	add_to_list(char *line, t_lem_list **head, int d)
 {
-	if (head == NULL)
+	if (*head == NULL) // *head or head not sure...
 		*head = origin_node(line, d);
 	else
 		insert_node(line, head, d);

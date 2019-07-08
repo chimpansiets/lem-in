@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/27 08:59:33 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/08 13:03:24 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/08 15:26:36 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 ** reading room conntection now and will go in the last if.
 */
 
-void	check_input(char *line, t_data *vl, t_lem_list **node)
+void	check_input(char *line, t_data *vl, t_lem_list **head)
 {
 	int d;
 
@@ -42,7 +42,7 @@ void	check_input(char *line, t_data *vl, t_lem_list **node)
 	if (line[0] != '#')
 		check_dash(line, vl);
 	if (!vl->check && !d)
-		check_start_end(line, vl, node);
+		check_start_end(line, vl, head);
 	if (vl->check)
 		check_room_connection(line);
 }
@@ -53,8 +53,9 @@ void	check_input(char *line, t_data *vl, t_lem_list **node)
 
 void	lemin_after_retrieving_input(t_lem_list *head)
 {
-	create_hash(head);
-	
+	t_lem_hash	**table;
+
+	table = create_hash(head);
 }
 
 /*
@@ -71,10 +72,9 @@ void	lemin(void)
 	char		*line;
 	t_data		vl;
 	int			fd;
-	
-	fd = 0;
+
 	head = NULL;
-	fd = open("input", fd, O_RDONLY);
+	fd = open("input", O_RDONLY);
 	ft_bzero(&vl, sizeof(t_data));
 	while(get_next_line(fd, &line))
 	{

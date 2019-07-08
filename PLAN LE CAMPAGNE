@@ -1,0 +1,5 @@
+El plan:
+
+Step 1: Set up graph using adjacency lists (https://medium.com/basecs/from-theory-to-practice-representing-graphs-cfd782c5be38).
+Step 2: Loop through the graph and level the rooms using Breadth First Search (BFS).
+(https://medium.com/basecs/going-broad-in-a-graph-bfs-traversal-959bd1a09255).
