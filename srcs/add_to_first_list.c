@@ -6,13 +6,13 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/04 08:27:14 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/05 10:25:45 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/05 17:02:48 by vmulder       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/lem-in.h"
 
-void	display(t_lem_list *node)
+static void	display(t_lem_list *node)
 {
 	while (node != NULL)
 	{
@@ -26,7 +26,7 @@ void	display(t_lem_list *node)
 ** the node, also the number.
 */
 
-t_lem_list	*origin_node(char *line, int d)
+static t_lem_list	*origin_node(char *line, int d)
 {
 	t_lem_list *new_node;
 
@@ -44,7 +44,7 @@ t_lem_list	*origin_node(char *line, int d)
 ** in the last line we make the headnote contain the newest node.
 */
 
-void	insert_node(char *line, t_lem_list **head, int d)
+static void	insert_node(char *line, t_lem_list **head, int d)
 {
 	t_lem_list *new_node;
 

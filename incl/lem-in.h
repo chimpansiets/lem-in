@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/27 08:56:35 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/05 16:13:00 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/05 17:06:28 by vmulder       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct			s_lem_list
 
 typedef struct			s_lem_hash
 {
-	int					id;
+	int					index;
 	char				*room;
 	struct s_lem_hash	*next;
 }						t_lem_hash;
