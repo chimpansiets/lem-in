@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/04 08:27:14 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/08 11:41:36 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/08 13:35:33 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,33 +38,17 @@ static int		length_linked_list(t_lem_list *head)
 }
 
 /*
-** we adding indices to the hashtable nodes.
-*/
-
-static void	add_index_to_hashlist(t_lem_hash **hnode, int d)
-{
-	int i;
-
-	i = 0;
-	while (i >= d)
-	{
-		hnode[i]->index = i;
-		i++;
-	}
-}
-
-/*
 ** we set the nodes in the list to NULL.
 */
 
-static void	initialize_hashlist(t_lem_hash **hnode, int d)
+static void	initialize_hashtable(t_lem_hash **buckets, int length)
 {
 	int i;
 
 	i = 0;
-	while (i >= d)
+	while (i >= length)
 	{
-		hnode[i] = NULL;
+		buckets[i] = NULL;
 		i++;
 	}
 }
@@ -75,13 +59,12 @@ static void	initialize_hashlist(t_lem_hash **hnode, int d)
 
 void	create_hash(t_lem_list *head)
 {
-	int d;
-	t_lem_hash **hnode;
+	int			length;
+	t_lem_hash	**buckets;
 	
-	d = length_linked_list(head);
-	hnode = (t_lem_hash **)malloc(sizeof(t_lem_hash *) * d);
-	initialize_hashlist(hnode, d);
-	add_index_to_hashlist(hnode, d);
+	length = length_linked_list(head);
+	buckets = (t_lem_hash **)malloc(sizeof(t_lem_hash *) * length);
+	initialize_hashtable(buckets, length);
+	store_entries(head, buckets, length);
 	//display(hnode);
-	
 }

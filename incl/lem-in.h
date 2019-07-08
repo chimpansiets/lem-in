@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/27 08:56:35 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/05 17:06:28 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/08 13:36:00 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 //#include <errno.h>
 
 /*
-** this list is were I store the the roomnames.
+** this list is where I store the the roomnames.
 ** roomvalue is a number that contains 0, 1 or 2.
 ** 1 for being startroom, 2 for being endroom and 0 for in between rooms.
 */
@@ -31,8 +31,7 @@ typedef struct			s_lem_list
 
 typedef struct			s_lem_hash
 {
-	int					index;
-	char				*room;
+	struct s_lem_list	*elem;
 	struct s_lem_hash	*next;
 }						t_lem_hash;
 
@@ -64,9 +63,12 @@ void					start_list(char *line, t_lem_list *head);
 void					add_to_list(char *line, t_lem_list **head, int d);
 
 /*
-** create hash table
+** hash table
 */
 
 void					create_hash(t_lem_list *head);
+int						hash_sum(char *key, int length);
+void					store_entries(t_lem_list *head, t_lem_hash **buckets, \
+						int length);
 
 #endif

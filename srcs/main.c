@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/27 08:59:33 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/05 14:45:41 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/08 13:03:24 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	check_input(char *line, t_data *vl, t_lem_list **node)
 void	lemin_after_retrieving_input(t_lem_list *head)
 {
 	create_hash(head);
+	
 }
 
 /*
