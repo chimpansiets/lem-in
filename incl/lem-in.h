@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/27 08:56:35 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/11 22:22:19 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/11 22:29:05 by vmulder       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void					check_start_end(char *line, t_data *vl, t_lem_list **head);
 void					check_line_after_start_end(char *line);
 int						check_ants(char *line, t_data *vl);
 void					check_dash(char *line, t_data *vl);
-void					check_room_connection(char *line, t_lem_hash **table);
+void					check_room_connection(char *line, t_lem_hash **table, t_data vl);
 
 /*
 ** link list

@@ -16,3 +16,9 @@ Step 2: Loop through the graph and level the rooms using Breadth First Search (B
 2.	We stoppen met lezen en creeeren de hashtable
 3.	We lezen weer met gnl de roomconnecties en kunnen nu efficient door
 	de hashtable zoeken om de edges toe te voegen.
+
+
+	yo om die shit hierboven gedaan te krijgen moest ik ineens de
+	hash table gaan maken in check_input.
+	nu gaat in check_room_connection de adjacency list worden gemaakt.
+	voor die shit moest ik op meerdere plekken ineens t_data meesturen.

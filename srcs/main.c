@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/27 08:59:33 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/11 22:20:20 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/11 22:29:29 by vmulder       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	check_input(char *line, t_data *vl, t_lem_list **head)
 			table = after_retrieving_rooms(*head, table, vl); // we now create the hash table here otherwise we can not append the edges to the hashtable.
 			vl->checkh = 1;
 		}
-		check_room_connection(line, table); // send head also into this file so it where it reads the connections it will add them to our ll
+		check_room_connection(line, table, *vl); // send head also into this file so it where it reads the connections it will add them to our ll
 	}
 }
 
