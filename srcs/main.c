@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/27 08:59:33 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/08 15:26:36 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/11 22:20:20 by vmulder       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,33 @@
 */
 
 /*
+** we going to call create_hash.
+*/
+
+t_lem_hash	**after_retrieving_rooms(t_lem_list *head, t_lem_hash **table, t_data *vl)
+{
+	table = create_hash(head, vl);
+	return (table);
+}
+
+/*
 ** First checks if there are no empty lines given to this function.
 ** Then it calls checkants if there are no ants yet stored.
 ** We check for a dash, if it cant find vl->check stays zero.
 ** We only go in fourth if when it did not went into second if (d will be 1)
 ** to prevent adding the number of ants to linked list.
 ** when check_dash finds a dash we will set vl->check positve to know we are
-** reading room conntection now and will go in the last if.
+** reading room connection now and will go in the last if.
+** when its ready to start reading the room connections we make a hashtable.
 */
 
 void	check_input(char *line, t_data *vl, t_lem_list **head)
 {
 	int d;
+	t_lem_hash	**table;
 
 	d = 0;
+	table = NULL;
 	if (ft_strlen(line) == 0)
 	{
 		free(line);
@@ -41,21 +54,17 @@ void	check_input(char *line, t_data *vl, t_lem_list **head)
 		d = check_ants(line, vl);
 	if (line[0] != '#')
 		check_dash(line, vl);
-	if (!vl->check && !d)
+	if (!vl->checkc && !d)
 		check_start_end(line, vl, head);
-	if (vl->check)
-		check_room_connection(line);
-}
-
-/*
-** we going to call create_hash.
-*/
-
-void	lemin_after_retrieving_input(t_lem_list *head)
-{
-	t_lem_hash	**table;
-
-	table = create_hash(head);
+	if (vl->checkc)
+	{
+		if (!vl->checkh)
+		{
+			table = after_retrieving_rooms(*head, table, vl); // we now create the hash table here otherwise we can not append the edges to the hashtable.
+			vl->checkh = 1;
+		}
+		check_room_connection(line, table); // send head also into this file so it where it reads the connections it will add them to our ll
+	}
 }
 
 /*
@@ -87,7 +96,6 @@ void	lemin(void)
 		ft_printf("Error: Either end or start room is missing.\n");
 		exit(1);
 	}
-	lemin_after_retrieving_input(head);
 }
 
 

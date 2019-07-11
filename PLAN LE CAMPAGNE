@@ -3,3 +3,16 @@ El plan:
 Step 1: Set up graph using adjacency lists (https://medium.com/basecs/from-theory-to-practice-representing-graphs-cfd782c5be38).
 Step 2: Loop through the graph and level the rooms using Breadth First Search (BFS).
 (https://medium.com/basecs/going-broad-in-a-graph-bfs-traversal-959bd1a09255).
+
+
+(lem-in function) NOW
+1. GNL -> leest alle roomnames en zet het in een linked lists.
+2. GNL -> leest alle roomconnections en doet nog niks.
+3. GNL -> Klaar met lezen dus gaat uit de while loop.
+4. lem-in gaat naar lemin_after_retrieving_input en maakt een hashtable
+
+				LATER
+1.	GNL -> leest alle roomnames en zet het in een linked lists.
+2.	We stoppen met lezen en creeeren de hashtable
+3.	We lezen weer met gnl de roomconnecties en kunnen nu efficient door
+	de hashtable zoeken om de edges toe te voegen.

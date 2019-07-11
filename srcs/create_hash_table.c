@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/04 08:27:14 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/08 15:37:03 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/11 22:22:48 by vmulder       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,14 @@ static void	print_hash(t_lem_hash **buckets, int length)
 ** We make a array of linked list with the size of 'length'.
 */
 
-t_lem_hash	**create_hash(t_lem_list *head)
+t_lem_hash	**create_hash(t_lem_list *head, t_data *vl)
 {
-	int			length;
 	t_lem_hash	**buckets;
 	
-	length = length_linked_list(head);
-	buckets = (t_lem_hash **)malloc(sizeof(t_lem_hash *) * length);
-	initialize_hashtable(buckets, length);
-	store_entries(head, buckets, length);
-	print_hash(buckets, length);
+	vl->length = length_linked_list(head);
+	buckets = (t_lem_hash **)malloc(sizeof(t_lem_hash *) * vl->length);
+	initialize_hashtable(buckets, vl->length);
+	store_entries(head, buckets, vl->length);
+	print_hash(buckets, vl->length);
 	return (buckets);
 }
