@@ -6,15 +6,15 @@
 /*   By: svoort <svoort@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/08 12:43:15 by svoort         #+#    #+#                */
-/*   Updated: 2019/07/12 14:19:17 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/12 16:36:19 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/lem-in.h"
 
-int		hash_sum(char *key, int length)
+unsigned long long	hash_sum(char *key, int length)
 {
-	unsigned hashval;
+	unsigned long long hashval;
 
 	hashval = 0;
 	while (*key != '\0')

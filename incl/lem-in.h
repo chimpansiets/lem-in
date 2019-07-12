@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/27 08:56:35 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/12 14:06:22 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/12 16:22:40 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,19 @@ void					add_to_list(char *line, t_lem_list **head, int d);
 */
 
 t_lem_hash				*create_hash(t_lem_list *head, t_data *vl);
-int						hash_sum(char *key, int length);
+unsigned long long		hash_sum(char *key, int length);
 t_lem_hash				*store_entries(t_lem_list *head, t_lem_hash *buckets, int length);
 
 /*
 ** adjecency list
 */
 
-// void					create_adjacency_list(char *lline, t_lem_list **head);
 void					add_connections(char *line, t_lem_hash *table, int length_list);
+
+/*
+**	debugging
+*/
+
+void					print_connections(t_lem_hash *table, int length);
 
 #endif

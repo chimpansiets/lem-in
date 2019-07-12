@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/27 08:59:33 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/12 14:31:46 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/12 16:50:36 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	lemin(void)
 
 	table = NULL;
 	head = NULL;
-	fd = open("input", O_RDONLY);
+	fd = open("new_file", O_RDONLY);
 	ft_bzero(&vl, sizeof(t_data));
 	while(get_next_line(fd, &line))
 	{
@@ -89,6 +89,7 @@ void	lemin(void)
 		ft_printf("Error: Either end or start room is missing.\n");
 		exit(1);
 	}
+	print_connections(table, vl.length);
 }
 
 

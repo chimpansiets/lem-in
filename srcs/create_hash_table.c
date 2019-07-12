@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/04 08:27:14 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/12 14:34:26 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/12 16:37:23 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,29 @@ static int		length_linked_list(t_lem_list *head)
 // }
 
 
-static void	print_hash(t_lem_hash *buckets, int length)
-{
-	int		i;
-	t_edge	*tmp;
+// static void	print_hash(t_lem_hash *buckets, int length)
+// {
+// 	int		i;
+// 	t_edge	*tmp;
 
-	i = 0;
-	while (i < length)
-	{
-		ft_printf("%s\n", buckets[i].elem->room);
-		tmp = buckets[i].elem->edges;
-		while (tmp)
-		{
-			ft_printf("%s connects to %s", buckets[i].elem->room, tmp->connects_to->room);
-			tmp = tmp->next;
-		}
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (i < length)
+// 	{
+// 		if (!buckets[i].elem)
+// 		{
+// 			i++;
+// 			continue ;
+// 		}
+// 		ft_printf("%s\n", buckets[i].elem->room);
+// 		tmp = buckets[i].elem->edges;
+// 		while (tmp)
+// 		{
+// 			ft_printf("%s connects to %s", buckets[i].elem->room, tmp->connects_to->room);
+// 			tmp = tmp->next;
+// 		}
+// 		i++;
+// 	}
+// }
 
 /*
 ** We make a array of linked list with the size of 'length'.
@@ -77,8 +82,8 @@ t_lem_hash	*create_hash(t_lem_list *head, t_data *vl)
 	t_lem_hash	*buckets;
 	
 	vl->length = length_linked_list(head);
-	buckets = (t_lem_hash*)ft_memalloc(sizeof(t_lem_hash) * vl->length);
+	buckets = (t_lem_hash*)ft_memalloc(sizeof(t_lem_hash) * vl->length); // still need to free later.
 	store_entries(head, buckets, vl->length);
-	print_hash(buckets, vl->length);
+	// print_hash(buckets, vl->length);
 	return (buckets);
 }

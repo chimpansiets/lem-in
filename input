@@ -7,10 +7,16 @@ Room4
 ##end
 Room5
 Room6
+abc
+cba
+bac
 ##unknown command
 Room1-Room3
 Room2-Room4
 Room2-Room3
 Room4-Room6
 Room5-Room4
+abc-cba
+Room3-abc
+bac-abc
 #commentdnadkwndd

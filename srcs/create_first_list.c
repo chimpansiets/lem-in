@@ -6,19 +6,25 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/04 08:27:14 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/12 14:07:10 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/12 16:48:12 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/lem-in.h"
 
-static void	display(t_lem_list *node)
+static char				*ft_getroomname(char *line)
 {
-	while (node != NULL)
+	char	*ret;
+	int		i;
+
+	i = 0;
+	ret = (char*)ft_memalloc(sizeof(char) * ft_strlen(line));
+	while (line[i] && line[i] != ' ' && line[i] != '\t')
 	{
-		ft_printf("nodestring: %s\n", node->room);
-		node = node->next;
+		ret[i] = line[i];
+		i++;
 	}
+	return (ret);
 }
 
 /*
@@ -29,9 +35,11 @@ static void	display(t_lem_list *node)
 static t_lem_list	*origin_node(char *line, int d)
 {
 	t_lem_list	*new_node;
+	char		*roomname;
 
 	new_node = (t_lem_list *)ft_memalloc(sizeof(t_lem_list));
-	new_node->room = ft_strdup(line);
+	roomname = ft_getroomname(line);
+	new_node->room = roomname;
 	new_node->roomvalue = d;
 
 	return (new_node);
@@ -65,6 +73,5 @@ void				add_to_list(char *line, t_lem_list **head, int d)
 		*head = origin_node(line, d);
 	else
 		insert_node(line, head, d);
-	display(*head);
-	ft_printf("\n");
+	// display(*head);
 }

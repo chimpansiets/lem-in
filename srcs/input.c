@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/29 18:35:06 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/12 14:27:45 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/12 15:43:46 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,14 +123,14 @@ void	check_start_end(char *line, t_data *vl, t_lem_list **head)
 	if (ft_strncmp("start", &line[2], 5) == 0 && line[7] == '\0')
 	{
 		vl->start++;
-		get_next_line(3, &vl->startroom);
+		get_next_line(3, &vl->startroom); // free vl->startroom later.
 		check_line_after_start_end(vl->startroom);
 		add_to_list(vl->startroom, head, 1);
 	}
 	else if(ft_strncmp("end", &line[2], 3) == 0 && line[5] == '\0')
 	{
 		vl->end++;
-		get_next_line(3, &vl->endroom);
+		get_next_line(3, &vl->endroom); // free vl->endroom later.
 		check_line_after_start_end(vl->endroom);
 		add_to_list(vl->endroom, head, 2);
 	}
