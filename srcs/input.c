@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/29 18:35:06 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/12 15:43:46 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/12 17:02:49 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		check_ants(char *line, t_data *vl)
 	i = 0;
 	while (line[i] >= '0' && line[i] <= '9')
 	{
-		vl->ants = vl->ants * 10 + line[i];
+		vl->ants = vl->ants * 10 + line[i] - '0';
 		i++;
 	}
 	if (line[i] != '\0')
