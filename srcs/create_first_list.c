@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/04 08:27:14 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/12 12:02:42 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/12 14:07:10 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	display(t_lem_list *node)
 
 static t_lem_list	*origin_node(char *line, int d)
 {
-	t_lem_list *new_node;
+	t_lem_list	*new_node;
 
 	new_node = (t_lem_list *)ft_memalloc(sizeof(t_lem_list));
 	new_node->room = ft_strdup(line);
@@ -43,9 +43,9 @@ static t_lem_list	*origin_node(char *line, int d)
 ** in the last line we make the headnote contain the newest node.
 */
 
-static void	insert_node(char *line, t_lem_list **head, int d)
+static void			insert_node(char *line, t_lem_list **head, int d)
 {
-	t_lem_list *new_node;
+	t_lem_list	*new_node;
 
 	new_node = origin_node(line, d);
 	new_node->next = *head;
@@ -59,9 +59,9 @@ static void	insert_node(char *line, t_lem_list **head, int d)
 ** head node it will go to the insert_node function.
 */
 
-void	add_to_list(char *line, t_lem_list **head, int d)
+void				add_to_list(char *line, t_lem_list **head, int d)
 {
-	if (*head == NULL) // *head or head not sure...
+	if (head == NULL) // *head or head not sure...
 		*head = origin_node(line, d);
 	else
 		insert_node(line, head, d);

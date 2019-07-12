@@ -6,13 +6,13 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/09 14:31:47 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/12 11:54:03 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/12 14:23:10 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/lem-in.h"
 
-static t_lem_list	*search_left_room(char *line, t_lem_hash **table, int length_list)
+static t_lem_list	*search_left_room(char *line, t_lem_hash *table, int length_list)
 {
 	t_lem_hash	*tmp;
 	char		*roomname;
@@ -20,7 +20,7 @@ static t_lem_list	*search_left_room(char *line, t_lem_hash **table, int length_l
 
 	roomname = ft_strndup(line, '-');
 	i = hash_sum(roomname, length_list);
-	tmp = table[i];
+	tmp = &table[i];
 	while (tmp != NULL)
 	{
 		if (ft_strcmp(tmp->elem->room, roomname) == 0)
@@ -31,7 +31,7 @@ static t_lem_list	*search_left_room(char *line, t_lem_hash **table, int length_l
 	return (NULL);
 }
 
-static t_lem_list	*search_right_room(char *line, t_lem_hash **table, int length_list)
+static t_lem_list	*search_right_room(char *line, t_lem_hash *table, int length_list)
 {
 	t_lem_hash	*tmp;
 	char		*roomname;
@@ -39,7 +39,7 @@ static t_lem_list	*search_right_room(char *line, t_lem_hash **table, int length_
 
 	roomname = ft_strdup(ft_strchr(line, '-') + 1);
 	i = hash_sum(roomname, length_list);
-	tmp = table[i];
+	tmp = &table[i];
 	while (tmp != NULL)
 	{
 		if (tmp->elem && tmp->elem->room && ft_strcmp(tmp->elem->room, roomname) == 0)
@@ -84,7 +84,7 @@ static void			add_second_connection(t_lem_list *room_left, t_lem_list *room_righ
 ** Looking for the leftroom in the connection string.
 */
 
-void				add_connections(char *line, t_lem_hash **table, int length_list)
+void				add_connections(char *line, t_lem_hash *table, int length_list)
 {
 	t_lem_list	*room_left;
 	t_lem_list	*room_right;

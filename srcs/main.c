@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/27 08:59:33 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/12 12:17:59 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/12 14:31:46 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,6 @@
 /* 
 ** they connect too. (change fd to 0 because gonna read std input)
 */
-
-/*
-** we going to call create_hash.
-*/
-
-t_lem_hash	**after_retrieving_rooms(t_lem_list *head, t_lem_hash **table, t_data *vl)
-{
-	table = create_hash(head, vl);
-	return (table);
-}
 
 /*
 ** First checks if there are no empty lines given to this function.
@@ -37,12 +27,12 @@ t_lem_hash	**after_retrieving_rooms(t_lem_list *head, t_lem_hash **table, t_data
 ** when its ready to start reading the room connections we make a hashtable.
 */
 
-void	check_input(char *line, t_data *vl, t_lem_list **head, t_lem_hash **table)
+static t_lem_hash	*check_input(char *line, t_data *vl, t_lem_hash *table, t_lem_list **head)
 {
 	int			d;
 
 	d = 0;
-	if (ft_strlen(line) == 0)
+	if (line && ft_strlen(line) == 0)
 	{
 		free(line);
 		ft_printf("Error: empty lines in file.\n");
@@ -58,11 +48,13 @@ void	check_input(char *line, t_data *vl, t_lem_list **head, t_lem_hash **table)
 	{
 		if (!vl->checkh)
 		{
-			table = after_retrieving_rooms(*head, table, vl); // we now create the hash table here otherwise we can not append the edges to the hashtable.
+			table = create_hash(*head, vl); // we now create the hash table here otherwise we can not append the edges to the hashtable.
 			vl->checkh = 1;
 		}
-		check_room_connection(line, table, *vl); // send head also into this file so it where it reads the connections it will add them to our ll
+		if (line[0] != '#')
+			check_room_connection(line, table, *vl); // send head also into this file so it where it reads the connections it will add them to our ll
 	}
+	return (table);
 }
 
 /*
@@ -87,7 +79,8 @@ void	lemin(void)
 	ft_bzero(&vl, sizeof(t_data));
 	while(get_next_line(fd, &line))
 	{
-		check_input(line, &vl, &head, &table);
+		if (line)
+			table = check_input(line, &vl, table, &head);
 		free(line);
 	}
 	free(line);
@@ -96,7 +89,6 @@ void	lemin(void)
 		ft_printf("Error: Either end or start room is missing.\n");
 		exit(1);
 	}
-	rest
 }
 
 

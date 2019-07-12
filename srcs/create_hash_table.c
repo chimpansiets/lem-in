@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/04 08:27:14 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/11 22:22:48 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/12 14:34:26 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,37 +34,35 @@ static int		length_linked_list(t_lem_list *head)
 ** we set the nodes in the list to NULL.
 */
 
-static void	initialize_hashtable(t_lem_hash **buckets, int length)
+// static void	initialize_hashtable(t_lem_hash **buckets, int length)
+// {
+// 	int i;
+
+// 	i = 0;
+// 	while (i < length)
+// 	{
+// 		buckets[i] = (t_lem_hash*)malloc(sizeof(t_lem_hash));
+// 		buckets[i]->elem = NULL;
+// 		buckets[i]->next = NULL;
+// 		i++;
+// 	}
+// }
+
+
+static void	print_hash(t_lem_hash *buckets, int length)
 {
-	int i;
+	int		i;
+	t_edge	*tmp;
 
 	i = 0;
 	while (i < length)
 	{
-		buckets[i] = (t_lem_hash*)malloc(sizeof(t_lem_hash));
-		buckets[i]->elem = NULL;
-		buckets[i]->next = NULL;
-		i++;
-	}
-}
-
-
-static void	print_hash(t_lem_hash **buckets, int length)
-{
-	int	i;
-
-	i = 0;
-	while (i < length)
-	{
-		if (buckets[i]->elem != NULL)
+		ft_printf("%s\n", buckets[i].elem->room);
+		tmp = buckets[i].elem->edges;
+		while (tmp)
 		{
-			ft_printf("%s ", buckets[i]->elem->room);
-			while (buckets[i]->next != NULL)
-			{
-				buckets[i] = buckets[i]->next;
-				ft_printf("%s ", buckets[i]->elem->room);
-			}
-			ft_printf("\n");
+			ft_printf("%s connects to %s", buckets[i].elem->room, tmp->connects_to->room);
+			tmp = tmp->next;
 		}
 		i++;
 	}
@@ -74,13 +72,12 @@ static void	print_hash(t_lem_hash **buckets, int length)
 ** We make a array of linked list with the size of 'length'.
 */
 
-t_lem_hash	**create_hash(t_lem_list *head, t_data *vl)
+t_lem_hash	*create_hash(t_lem_list *head, t_data *vl)
 {
-	t_lem_hash	**buckets;
+	t_lem_hash	*buckets;
 	
 	vl->length = length_linked_list(head);
-	buckets = (t_lem_hash **)malloc(sizeof(t_lem_hash *) * vl->length);
-	initialize_hashtable(buckets, vl->length);
+	buckets = (t_lem_hash*)ft_memalloc(sizeof(t_lem_hash) * vl->length);
 	store_entries(head, buckets, vl->length);
 	print_hash(buckets, vl->length);
 	return (buckets);

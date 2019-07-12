@@ -6,7 +6,7 @@
 /*   By: svoort <svoort@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/08 12:43:15 by svoort         #+#    #+#                */
-/*   Updated: 2019/07/08 16:31:30 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/12 14:19:17 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int		hash_sum(char *key, int length)
 	return (hashval % length);
 }
 
+
+
 /*
 **	In case there is a collision we use seperate chaining with linked lists.
 **	If we find that there already is an entry in our bucket, we loop
@@ -32,23 +34,23 @@ int		hash_sum(char *key, int length)
 **	Until we find the end, and insert a new bucket at the end of our list.
 */
 
-void	store_entry(t_lem_list *head, int hash, t_lem_hash **buckets)
+t_lem_hash	*store_entry(t_lem_list *curr, int hash, t_lem_hash *buckets)
 {
-	if (buckets[hash]->elem == NULL)
-		buckets[hash]->elem = head;
+	if (buckets[hash].elem == NULL)
+		buckets[hash].elem = curr;
 	else
 	{
-		t_lem_hash	*new;
 		t_lem_hash	*tmp;
+		t_lem_hash	*new;
 
-		new = (t_lem_hash*)malloc(sizeof(t_lem_hash));
-		tmp = buckets[hash];
-		while (tmp->next != NULL)
+		new = (t_lem_hash *)ft_memalloc(sizeof(t_lem_hash));
+		new->elem = curr;
+		tmp = &buckets[hash];
+		while(tmp && tmp->next)
 			tmp = tmp->next;
 		tmp->next = new;
-		new->elem = head;
-		new->next = NULL;
 	}
+	return (buckets);
 }
 
 /*
@@ -56,14 +58,17 @@ void	store_entry(t_lem_list *head, int hash, t_lem_hash **buckets)
 **	bucket in our hashtable.
 */
 
-void	store_entries(t_lem_list *head, t_lem_hash **buckets, int length)
+t_lem_hash	*store_entries(t_lem_list *head, t_lem_hash *buckets, int length)
 {
-	int	hash;
+	int			hash;
+	t_lem_list	*curr;
 
-	while (head != NULL)
+	curr = head;
+	while (curr != NULL)
 	{
-		hash = hash_sum(head->room, length);
-		store_entry(head, hash, buckets);
-		head = head->next;
+		hash = hash_sum(curr->room, length);
+		store_entry(curr, hash, buckets);
+		curr = curr->next;
 	}
+	return (buckets);
 }

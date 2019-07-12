@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/27 08:56:35 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/12 11:43:35 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/12 14:06:22 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void					check_start_end(char *line, t_data *vl, t_lem_list **head);
 void					check_line_after_start_end(char *line);
 int						check_ants(char *line, t_data *vl);
 void					check_dash(char *line, t_data *vl);
-void					check_room_connection(char *line, t_lem_hash **table, t_data vl);
+void					check_room_connection(char *line, t_lem_hash *table, t_data vl);
 
 /*
 ** link list
@@ -76,16 +76,15 @@ void					add_to_list(char *line, t_lem_list **head, int d);
 ** hash table
 */
 
-t_lem_hash				**create_hash(t_lem_list *head, t_data *vl);
+t_lem_hash				*create_hash(t_lem_list *head, t_data *vl);
 int						hash_sum(char *key, int length);
-void					store_entries(t_lem_list *head, t_lem_hash **buckets, \
-						int length);
+t_lem_hash				*store_entries(t_lem_list *head, t_lem_hash *buckets, int length);
 
 /*
 ** adjecency list
 */
 
 // void					create_adjacency_list(char *lline, t_lem_list **head);
-void					add_connections(char *line, t_lem_hash **table, int length_list);
+void					add_connections(char *line, t_lem_hash *table, int length_list);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/29 18:35:06 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/12 12:01:53 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/12 14:27:45 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** need them anymore.
 */
 
-void	check_room_connection(char *line, t_lem_hash **table, t_data vl)
+void	check_room_connection(char *line, t_lem_hash *table, t_data vl)
 {
 	int i;
 	int count;
@@ -98,13 +98,13 @@ int		check_ants(char *line, t_data *vl)
 
 void	check_line_after_start_end(char *line)
 {
-	if (ft_strlen(line) == 0)
+	if (line && ft_strlen(line) == 0)
 	{
 		free(line);
 		ft_printf("Error: empty line after start or end.\n");
 		exit(1);
 	}
-	else if (line[0] == '#')
+	else if (line && line[0] == '#')
 	{
 		free(line);
 		ft_printf("Error: comment after start or end.\n");
