@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/29 18:35:06 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/11 22:28:50 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/12 12:01:53 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** need them anymore.
 */
 
-void	check_room_connection(char *line, t_lem_hash **table, t_data vl) //add to adjacency list
+void	check_room_connection(char *line, t_lem_hash **table, t_data vl)
 {
 	int i;
 	int count;
@@ -34,7 +34,7 @@ void	check_room_connection(char *line, t_lem_hash **table, t_data vl) //add to a
 	}
 	if (count == 1)
 	{
-		add_to_adjacency_list(line, table, vl);// add to the current node the edge (which is the room that comes after the dash and malloc the s_edge struct for that.)
+		add_connections(line, table, vl.length);
 		return ;
 	}
 	else
@@ -135,7 +135,5 @@ void	check_start_end(char *line, t_data *vl, t_lem_list **head)
 		add_to_list(vl->endroom, head, 2);
 	}
 	else if (line[0] != '#')
-	{
 		add_to_list(line, head, 0);
-	}
 }

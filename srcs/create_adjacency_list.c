@@ -6,59 +6,103 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/09 14:31:47 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/11 22:40:17 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/12 11:54:03 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/lem-in.h"
 
-/*
-** Looking for the leftroom in the connection string.
-** yo sietse als je toevallig vrijdag op codam bent en aan de code werkt.
-** en ik er nog niet ben ik was hier gebleven (ja niet zoveel gedaan xd).
-** zal ook wel in plan le campagne schrijven.
-*/
-
-void		search_left_room(char *line, t_lem_hash **table, t_data vl)
+static t_lem_list	*search_left_room(char *line, t_lem_hash **table, int length_list)
 {
-	char	*roomname;
-	int		i;
+	t_lem_hash	*tmp;
+	char		*roomname;
+	int			i;
 
 	roomname = ft_strndup(line, '-');
-	i = hash_sum(roomname, vl.length);
-	while (table[i] != NULL)
+	i = hash_sum(roomname, length_list);
+	tmp = table[i];
+	while (tmp != NULL)
 	{
-		if (ft_strcmp(table[i]->elem->room, roomname == 0))
-		{
-			// ga hier de node naar de room laten pointen die 
-			// we nog moeten vinden.
-		} 
+		if (ft_strcmp(tmp->elem->room, roomname) == 0)
+			return (tmp->elem);
+		tmp = tmp->next;
 	}
 	free(roomname);
+	return (NULL);
 }
 
-void		add_to_adjacency_list(char *line, t_lem_hash **table, t_data vl)
+static t_lem_list	*search_right_room(char *line, t_lem_hash **table, int length_list)
 {
-	search_left_room(line, table, vl);
+	t_lem_hash	*tmp;
+	char		*roomname;
+	int			i;
+
+	roomname = ft_strdup(ft_strchr(line, '-') + 1);
+	i = hash_sum(roomname, length_list);
+	tmp = table[i];
+	while (tmp != NULL)
+	{
+		if (tmp->elem && tmp->elem->room && ft_strcmp(tmp->elem->room, roomname) == 0)
+			return (tmp->elem);
+		tmp = tmp->next;
+	}
+	free(roomname);
+	return (NULL);
 }
 
-static t_lem_list	*origin_node(char *line, int d)
+static void			add_first_connection(t_lem_list *room_left, t_lem_list *room_right, t_edge *connection)
 {
-	t_lem_list *new_node;
+	if (room_left->edges == NULL)
+		room_left->edges = connection;
+	else
+	{
+		t_edge	*tmp;
 
-	new_node = (t_lem_list *)malloc(sizeof(t_lem_list));
-	new_node->room = ft_strdup(line);
-	new_node->roomvalue = d;
-	new_node->next = NULL;
-
-	return (new_node);
+		tmp = room_left->edges->next;
+		room_left->edges = connection;
+		connection->next = tmp;
+	}
+	connection->connects_to = room_right;
 }
 
-static void	insert_node(char *line, t_lem_list **head, int d)
+static void			add_second_connection(t_lem_list *room_left, t_lem_list *room_right, t_edge *connection)
 {
-	t_lem_list *new_node;
+	if (room_right->edges == NULL)
+		room_right->edges = connection;
+	else
+	{
+		t_edge	*tmp;
 
-	new_node = origin_node(line, d);
-	new_node->next = *head;
-	*head = new_node;
+		tmp = room_right->edges->next;
+		room_right->edges = connection;
+		connection->next = tmp;
+	}
+	connection->connects_to = room_left;
+}
+
+/*
+** Looking for the leftroom in the connection string.
+*/
+
+void				add_connections(char *line, t_lem_hash **table, int length_list)
+{
+	t_lem_list	*room_left;
+	t_lem_list	*room_right;
+	t_edge		*first_ptr;
+	t_edge		*second_ptr;
+
+	room_left = search_left_room(line, table, length_list);
+	room_right = search_right_room(line, table, length_list);
+	first_ptr = (t_edge *)ft_memalloc(sizeof(t_edge));
+	second_ptr = (t_edge *)ft_memalloc(sizeof(t_edge));
+	if (room_left && room_right)
+	{
+		add_first_connection(room_left, room_right, first_ptr);
+		add_second_connection(room_left, room_right, second_ptr);
+	}
+	else
+	{
+		ft_printf("Error: either room does not exist, or you are mistaken in another way...\n");
+		exit(1);
+	}
 }

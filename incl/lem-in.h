@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/27 08:56:35 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/11 22:29:05 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/12 11:43:35 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 ** 1 for being startroom, 2 for being endroom and 0 for in between rooms.
 */
 
-//this is a new struct
 typedef struct 			s_edge
 {
 	struct s_lem_list	*connects_to;
@@ -34,7 +33,7 @@ typedef struct			s_lem_list
 	int					roomvalue;
 	char				*room;
 	struct s_lem_list	*next;
-	struct s_edge		*edges; //this is new
+	struct s_edge		*edges;
 }						t_lem_list;
 
 typedef struct			s_lem_hash
@@ -86,6 +85,7 @@ void					store_entries(t_lem_list *head, t_lem_hash **buckets, \
 ** adjecency list
 */
 
-void					create_adjacency_list(char *lline, t_lem_list **head);
+// void					create_adjacency_list(char *lline, t_lem_list **head);
+void					add_connections(char *line, t_lem_hash **table, int length_list);
 
 #endif

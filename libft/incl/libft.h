@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/12 18:22:41 by vmulder        #+#    #+#                */
-/*   Updated: 2019/06/29 16:34:39 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/12 11:45:45 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 char				*ft_itoa_base_u(unsigned long long n, int base, int q);
 char				*ft_itoa_base(long long n, int base, int q);
 int					ft_getdigits_u(unsigned long long c);
+char				*ft_strndup(const char *s1, char c);
 
 /*
 **		printf

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   add_to_first_list.c                                :+:    :+:            */
+/*   create_first_list.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/04 08:27:14 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/08 15:29:34 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/12 12:02:42 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,9 @@ static t_lem_list	*origin_node(char *line, int d)
 {
 	t_lem_list *new_node;
 
-	new_node = (t_lem_list *)malloc(sizeof(t_lem_list));
+	new_node = (t_lem_list *)ft_memalloc(sizeof(t_lem_list));
 	new_node->room = ft_strdup(line);
 	new_node->roomvalue = d;
-	new_node->next = NULL;
 
 	return (new_node);
 }

@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/27 08:59:33 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/11 22:29:29 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/12 12:17:59 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,11 @@ t_lem_hash	**after_retrieving_rooms(t_lem_list *head, t_lem_hash **table, t_data
 ** when its ready to start reading the room connections we make a hashtable.
 */
 
-void	check_input(char *line, t_data *vl, t_lem_list **head)
+void	check_input(char *line, t_data *vl, t_lem_list **head, t_lem_hash **table)
 {
-	int d;
-	t_lem_hash	**table;
+	int			d;
 
 	d = 0;
-	table = NULL;
 	if (ft_strlen(line) == 0)
 	{
 		free(line);
@@ -81,13 +79,15 @@ void	lemin(void)
 	char		*line;
 	t_data		vl;
 	int			fd;
+	t_lem_hash	*table;
 
+	table = NULL;
 	head = NULL;
 	fd = open("input", O_RDONLY);
 	ft_bzero(&vl, sizeof(t_data));
 	while(get_next_line(fd, &line))
 	{
-		check_input(line, &vl, &head);
+		check_input(line, &vl, &head, &table);
 		free(line);
 	}
 	free(line);
@@ -96,6 +96,7 @@ void	lemin(void)
 		ft_printf("Error: Either end or start room is missing.\n");
 		exit(1);
 	}
+	rest
 }
 
 

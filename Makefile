@@ -6,7 +6,7 @@
 #    By: vmulder <vmulder@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/04/22 14:18:40 by vmulder        #+#    #+#                 #
-#    Updated: 2019/07/09 16:00:08 by vmulder       ########   odam.nl          #
+#    Updated: 2019/07/12 11:56:12 by svoort        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRC_PATH  = srcs
 
 ### SOURCES ###
 SOURCES = main.c input.c create_first_list.c create_hash_table.c \
-		hash_functions.c
+		hash_functions.c create_adjacency_list.c
 
 ### OBJECTS ###
 SRCS = $(addprefix $(SRC_PATH)/,$(SOURCES))

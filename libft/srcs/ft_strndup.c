@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils.c                                            :+:    :+:            */
+/*   ft_strndup.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
+/*   By: vmulder <marvin@codam.nl>                    +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/07/11 21:50:46 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/11 21:56:42 by vmulder       ########   odam.nl         */
+/*   Created: 2019/01/17 11:41:41 by vmulder        #+#    #+#                */
+/*   Updated: 2019/07/12 11:45:01 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/lem-in.h"
+#include "libft.h"
 
 static int	ft_strnlen(const char *s, char c)
 {
 	int i;
 
 	i = 0;
-	while (s[i] != c)
+	while (s[i] && s[i] != c)
 		i++;
 	return (i);
 }
@@ -33,7 +33,7 @@ char		*ft_strndup(const char *s1, char c)
 	res = pdes;
 	if (pdes == NULL)
 		return (NULL);
-	while (*psource != '\0' || *psource != c)
+	while (*psource != '\0' && *psource != c)
 	{
 		*pdes = *psource;
 		pdes++;
