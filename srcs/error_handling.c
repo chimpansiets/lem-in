@@ -6,13 +6,13 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/13 14:36:46 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/13 18:55:36 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/13 19:01:13 by vmulder       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/lem-in.h"
 
-void	error_message(int errornr)
+static void	error_message(int errornr)
 {
 	if (errornr == 1)
 		ft_printf("Error: Empty lines in file.\n");
@@ -30,7 +30,7 @@ void	error_message(int errornr)
 		ft_printf("Error: Nonexistent room.\n");
 }
 
-void	error_handling(int error_nr, int free_nr, ...)
+void		error_handling(int error_nr, int free_nr, ...)
 {
 	va_list	listpointer;
 	char	**tmp0;
