@@ -6,11 +6,11 @@
 /*   By: svoort <svoort@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/12 15:50:32 by svoort         #+#    #+#                */
-/*   Updated: 2019/07/12 16:53:32 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/13 14:42:47 by vmulder       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "../incl/lem-in.h"
 
 void	print_connections(t_lem_hash *table, int length)
 {

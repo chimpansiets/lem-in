@@ -4,21 +4,15 @@ Step 1: Set up graph using adjacency lists (https://medium.com/basecs/from-theor
 Step 2: Loop through the graph and level the rooms using Breadth First Search (BFS).
 (https://medium.com/basecs/going-broad-in-a-graph-bfs-traversal-959bd1a09255).
 
+!!!!
+some how it screws up the names of the room, if you check input
+it will show "abcm6" after that it shows Room6
+so i think it overwrites a roomname somewhere because its combination of abc and Room6.
+maybe got something to do with memalloc??
+!!!!
 
-(lem-in function) NOW
-1. GNL -> leest alle roomnames en zet het in een linked lists.
-2. GNL -> leest alle roomconnections en doet nog niks.
-3. GNL -> Klaar met lezen dus gaat uit de while loop.
-4. lem-in gaat naar lemin_after_retrieving_input en maakt een hashtable
+error_handling is new, the idea you came up with (variadic arguments) is implemented.
+i made some comments in the function because somehow it didnt show leaks without even
+sending the line and free it in our error_handling function. not checked with valgrind.
+please test it to check if you find any errors, the error_nr 7 is a bit tricky i guess.
 
-				LATER
-1.	GNL -> leest alle roomnames en zet het in een linked lists.
-2.	We stoppen met lezen en creeeren de hashtable
-3.	We lezen weer met gnl de roomconnecties en kunnen nu efficient door
-	de hashtable zoeken om de edges toe te voegen.
-
-
-	yo om die shit hierboven gedaan te krijgen moest ik ineens de
-	hash table gaan maken in check_input.
-	nu gaat in check_room_connection de adjacency list worden gemaakt.
-	voor die shit moest ik op meerdere plekken ineens t_data meesturen.

@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/27 08:56:35 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/12 16:22:40 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/13 16:00:21 by vmulder       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,11 @@ void					add_connections(char *line, t_lem_hash *table, int length_list);
 */
 
 void					print_connections(t_lem_hash *table, int length);
+
+/*
+** error
+*/
+
+void					error_handling(int error_nr, int free_nr, ...);
 
 #endif

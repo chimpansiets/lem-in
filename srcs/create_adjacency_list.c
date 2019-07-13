@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/09 14:31:47 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/12 16:22:06 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/13 18:46:04 by vmulder       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,10 @@ void				add_connections(char *line, t_lem_hash *table, int length_list)
 	}
 	else
 	{
-		ft_printf("Error: either room does not exist, or you are mistaken in another way...\n");
-		free(first_ptr);
-		free(second_ptr);
+		error_handling(7, 2, &first_ptr, &second_ptr); // needs to be tested
+		// ft_printf("Error: either room does not exist, or you are mistaken in another way...\n"); //error nr7 free 2
+		// free(first_ptr);
+		// free(second_ptr);
 		exit(1);
 	}
 }

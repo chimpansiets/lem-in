@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/29 18:35:06 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/12 17:02:49 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/13 18:34:32 by vmulder       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,7 @@ void	check_room_connection(char *line, t_lem_hash *table, t_data vl)
 		return ;
 	}
 	else
-	{
-		free(line);
-		ft_printf("Error: There is a problem with linking rooms.\n");
-		exit(1);
-	}
+		error_handling(3, 1, &line); // so i tested this with freeing line and without and it makes no difference, maybe it does valgrind.
 }
 
 /*
@@ -83,11 +79,7 @@ int		check_ants(char *line, t_data *vl)
 		i++;
 	}
 	if (line[i] != '\0')
-	{
-		free(line);
-		ft_printf("Error: The number of ants is incorrect or missing.\n");
-		exit(1);
-	}
+		error_handling(4, 1, &line);
 	return (1);
 }
 
@@ -99,17 +91,9 @@ int		check_ants(char *line, t_data *vl)
 void	check_line_after_start_end(char *line)
 {
 	if (line && ft_strlen(line) == 0)
-	{
-		free(line);
-		ft_printf("Error: empty line after start or end.\n");
-		exit(1);
-	}
+		error_handling(5, 1, &line);
 	else if (line && line[0] == '#')
-	{
-		free(line);
-		ft_printf("Error: comment after start or end.\n");
-		exit(1);
-	}
+		error_handling(6, 1, &line);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/27 08:59:33 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/12 16:50:36 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/13 17:35:22 by vmulder       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,11 @@
 
 static t_lem_hash	*check_input(char *line, t_data *vl, t_lem_hash *table, t_lem_list **head)
 {
-	int			d;
+	int	d;
 
 	d = 0;
 	if (line && ft_strlen(line) == 0)
-	{
-		free(line);
-		ft_printf("Error: empty lines in file.\n");
-		exit(1);
-	}
+		error_handling(1, 0); // first try but line didnt need free in this one
 	if (vl->ants == 0)
 		d = check_ants(line, vl);
 	if (line[0] != '#')
@@ -75,7 +71,7 @@ void	lemin(void)
 
 	table = NULL;
 	head = NULL;
-	fd = open("new_file", O_RDONLY);
+	fd = open("input", O_RDONLY);
 	ft_bzero(&vl, sizeof(t_data));
 	while(get_next_line(fd, &line))
 	{
@@ -85,10 +81,7 @@ void	lemin(void)
 	}
 	free(line);
 	if (vl.start != 1 || vl.end != 1)
-	{
-		ft_printf("Error: Either end or start room is missing.\n");
-		exit(1);
-	}
+		error_handling(2, 0);
 	print_connections(table, vl.length);
 }
 
