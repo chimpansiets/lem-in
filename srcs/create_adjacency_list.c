@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/09 14:31:47 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/13 18:46:04 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/14 12:15:16 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void				add_connections(char *line, t_lem_hash *table, int length_list)
 
 	room_left = search_left_room(line, table, length_list);
 	room_right = search_right_room(line, table, length_list);
-	first_ptr = (t_edge *)ft_memalloc(sizeof(t_edge)); // free these two later.
+	first_ptr = (t_edge *)ft_memalloc(sizeof(t_edge));
 	second_ptr = (t_edge *)ft_memalloc(sizeof(t_edge));
 	if (room_left && room_right)
 	{
@@ -107,11 +107,5 @@ void				add_connections(char *line, t_lem_hash *table, int length_list)
 		add_second_connection(room_left, room_right, second_ptr);
 	}
 	else
-	{
-		error_handling(7, 2, &first_ptr, &second_ptr); // needs to be tested
-		// ft_printf("Error: either room does not exist, or you are mistaken in another way...\n"); //error nr7 free 2
-		// free(first_ptr);
-		// free(second_ptr);
-		exit(1);
-	}
+		error_handling(7, 2, first_ptr, second_ptr);
 }

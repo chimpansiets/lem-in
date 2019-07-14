@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/13 14:36:46 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/13 19:01:13 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/14 11:47:31 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,16 @@ static void	error_message(int errornr)
 void		error_handling(int error_nr, int free_nr, ...)
 {
 	va_list	listpointer;
-	char	**tmp0;
-	t_edge	**tmp1;
+	void	*tmp;
 
-	tmp0 = NULL;
-	tmp1 = NULL;
 	error_message(error_nr);
 	va_start(listpointer, free_nr);
 	while (free_nr)
 	{
-		if (error_nr < 7)
-		{
-			tmp0 = va_arg(listpointer, char**);
-			ft_printf("wrong input line: %s\n", *tmp0);
-			free(*tmp0);
-		}
-		else
-		{
-			tmp1 = va_arg(listpointer, t_edge**);
-			free(*tmp1);
-		}
+		tmp = va_arg(listpointer, void *);
+		free(tmp);
 		free_nr--;
 	}
-	// here we free line for 1, 2, 3, 4, 5, 6 but in normal leak checker doesnt make a difference
-	// if we free it or not, lets check with valgrind.
 	va_end(listpointer);
 	exit(1);
 }

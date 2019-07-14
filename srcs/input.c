@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/29 18:35:06 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/13 18:34:32 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/14 12:14:36 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,9 @@ void	check_room_connection(char *line, t_lem_hash *table, t_data vl)
 		i++;
 	}
 	if (count == 1)
-	{
 		add_connections(line, table, vl.length);
-		return ;
-	}
 	else
-		error_handling(3, 1, &line); // so i tested this with freeing line and without and it makes no difference, maybe it does valgrind.
+		error_handling(3, 1, line); // so i tested this with freeing line and without and it makes no difference, maybe it does valgrind.
 }
 
 /*
@@ -79,7 +76,7 @@ int		check_ants(char *line, t_data *vl)
 		i++;
 	}
 	if (line[i] != '\0')
-		error_handling(4, 1, &line);
+		error_handling(4, 1, line);
 	return (1);
 }
 
@@ -91,9 +88,9 @@ int		check_ants(char *line, t_data *vl)
 void	check_line_after_start_end(char *line)
 {
 	if (line && ft_strlen(line) == 0)
-		error_handling(5, 1, &line);
+		error_handling(5, 1, line);
 	else if (line && line[0] == '#')
-		error_handling(6, 1, &line);
+		error_handling(6, 1, line);
 }
 
 /*

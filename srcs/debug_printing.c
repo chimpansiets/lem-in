@@ -6,7 +6,7 @@
 /*   By: svoort <svoort@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/12 15:50:32 by svoort         #+#    #+#                */
-/*   Updated: 2019/07/13 14:42:47 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/14 12:17:21 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	print_connections(t_lem_hash *table, int length)
 {
-	t_edge	*tmp;
+	t_edge		*tmp1;
+	t_lem_hash	*tmp2;
 	int		i;
 
 	i = 0;
@@ -26,12 +27,17 @@ void	print_connections(t_lem_hash *table, int length)
 			i++;
 			continue ;
 		}
-		ft_printf("%s\n", table[i].elem->room);
-		tmp = table[i].elem->edges;
-		while (tmp)
+		tmp2 = &table[i];
+		while (tmp2)
 		{
-			ft_printf("connects to %s\n", tmp->connects_to->room);
-			tmp = tmp->next;
+			ft_printf("Room: %s\n", tmp2->elem->room);
+			tmp1 = tmp2->elem->edges;
+			while (tmp1)
+			{
+				ft_printf("connects to %s\n", tmp1->connects_to->room);
+				tmp1 = tmp1->next;
+			}
+			tmp2 = tmp2->next;
 		}
 		i++;
 	}

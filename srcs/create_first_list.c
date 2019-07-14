@@ -6,11 +6,21 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/04 08:27:14 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/12 16:48:12 by svoort        ########   odam.nl         */
+/*   Updated: 2019/07/14 12:09:43 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/lem-in.h"
+
+static void		display(t_lem_list *list)
+{
+	while (list)
+	{
+		ft_printf("%s\n", list->room);
+		list = list->next;
+	}
+	ft_printf("\n");
+}
 
 static char				*ft_getroomname(char *line)
 {
@@ -18,12 +28,13 @@ static char				*ft_getroomname(char *line)
 	int		i;
 
 	i = 0;
-	ret = (char*)ft_memalloc(sizeof(char) * ft_strlen(line));
+	ret = (char*)ft_memalloc(sizeof(char) * ft_strlen(line) + 1);
 	while (line[i] && line[i] != ' ' && line[i] != '\t')
 	{
 		ret[i] = line[i];
 		i++;
 	}
+	ret[i] = '\0';
 	return (ret);
 }
 
@@ -35,11 +46,9 @@ static char				*ft_getroomname(char *line)
 static t_lem_list	*origin_node(char *line, int d)
 {
 	t_lem_list	*new_node;
-	char		*roomname;
 
 	new_node = (t_lem_list *)ft_memalloc(sizeof(t_lem_list));
-	roomname = ft_getroomname(line);
-	new_node->room = roomname;
+	new_node->room = ft_getroomname(line);
 	new_node->roomvalue = d;
 
 	return (new_node);
@@ -73,5 +82,5 @@ void				add_to_list(char *line, t_lem_list **head, int d)
 		*head = origin_node(line, d);
 	else
 		insert_node(line, head, d);
-	// display(*head);
+	display(*head);
 }

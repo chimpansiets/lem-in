@@ -6,7 +6,7 @@
 /*   By: vmulder <vmulder@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/27 08:59:33 by vmulder        #+#    #+#                */
-/*   Updated: 2019/07/13 17:35:22 by vmulder       ########   odam.nl         */
+/*   Updated: 2019/07/14 12:28:11 by svoort        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,25 @@ static t_lem_hash	*check_input(char *line, t_data *vl, t_lem_hash *table, t_lem_
 	return (table);
 }
 
+static t_lem_hash	*read_input(t_data *vl)
+{
+	int			fd;
+	t_lem_list	*head;
+	t_lem_hash	*table;
+	char		*line;
+
+	head = NULL; // maybe table = NULL needs to be added aswell.
+	fd = open("input", O_RDONLY);
+	while(get_next_line(fd, &line))
+	{
+		if (line)
+			table = check_input(line, vl, table, &head);
+		free(line);
+	}
+	free(line);
+	return (table);
+}
+
 /*
 ** lemin is the loop to read all the input and to call the function that is
 ** going to check the input. after the loop is done it checks if it found
@@ -63,23 +82,11 @@ static t_lem_hash	*check_input(char *line, t_data *vl, t_lem_hash *table, t_lem_
 
 void	lemin(void)
 {
-	t_lem_list	*head;
-	char		*line;
 	t_data		vl;
-	int			fd;
 	t_lem_hash	*table;
 
-	table = NULL;
-	head = NULL;
-	fd = open("input", O_RDONLY);
 	ft_bzero(&vl, sizeof(t_data));
-	while(get_next_line(fd, &line))
-	{
-		if (line)
-			table = check_input(line, &vl, table, &head);
-		free(line);
-	}
-	free(line);
+	table = read_input(&vl);
 	if (vl.start != 1 || vl.end != 1)
 		error_handling(2, 0);
 	print_connections(table, vl.length);
