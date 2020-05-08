@@ -33,14 +33,14 @@ Allowed functions for the mandatory part are malloc, free, read, write, strerror
 
 ## Installation and usage
 
-Simply clone repository and run the following command for calculating most efficient movement on a big map (run ./generator for help and other options):
+Simply clone repository and run the following command for calculating most efficient movement on a big map:
 
 ```
 make
 
 ./lem-in < $(./generator big)
 ```
-Here 'maps/subject-1.map' is an example of game map.
+run ./generator for help and other options
 
 ## Moving the agents from start to end
 
