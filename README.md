@@ -42,7 +42,7 @@ make
 ```
 Here 'maps/subject-1.map' is an example of game map.
 
-## Solving a task
+## Moving the agents from start to end
 
 There are a lot of possible ways and algorithms to solve the task.
 For saving the data of the graph I used an edge list connected to every node in the graph.
